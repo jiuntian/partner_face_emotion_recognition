@@ -1,0 +1,17 @@
+<html>
+   <body>
+    <h1>Is He/She Angry?</h1>
+    <p>Are you wondering if your partner's mode right now?
+         Or you are unsure whether he/she is angry?</p>
+    <p></p>
+    <p>Take a picture and upload it here, and we will tell you!</p>
+    {% for mesg in get_flashed_messages() %}
+      <h3>{{ mesg }}</h3>
+      {% endfor %}
+      <form action = "http://127.0.0.1:8000/upload" method = "POST" 
+         enctype = "multipart/form-data">
+         <input type = "file" name = "file"/>
+         <input type = "submit" value = "Predict"/>
+      </form>   
+   </body>
+</html>
