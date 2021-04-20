@@ -36,8 +36,8 @@ def pil_loader(path: str) -> Image.Image:
         img = Image.open(f)
         return img.convert('RGB')
 
-def predictImage(filepath):
-  img = pil_loader(filepath)
+def predictImage(img):
+  # img = pil_loader(filepath)
   img = transform_test(img)
   img = img.unsqueeze(0)
   
