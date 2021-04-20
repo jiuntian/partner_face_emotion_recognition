@@ -8,7 +8,7 @@ import io, base64
 from PIL import Image
 
 UPLOAD_FOLDER = 'static/uploads/'
-ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '12345'

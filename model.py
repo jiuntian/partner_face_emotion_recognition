@@ -23,12 +23,11 @@ label_to_expression = {
 }
 
 transform_test = transforms.Compose([
+    transforms.Resize(90),
     transforms.ToTensor(),
 ])
 
-torch.manual_seed(0)
-np.random.seed(0)
-cpu = torch.load('static/rafdb_resnet18.pth', map_location=torch.device('cpu'))
+cpu = torch.load('resource/rafdb_resnet18.pth', map_location=torch.device('cpu'))
 cpu.eval()
 
 def pil_loader(path: str) -> Image.Image:
