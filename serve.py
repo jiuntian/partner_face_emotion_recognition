@@ -3,7 +3,7 @@
 from flask import Flask, render_template, request, flash, redirect, url_for
 import os
 from werkzeug.utils import secure_filename
-
+import model
 
 UPLOAD_FOLDER = 'static/uploads/'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
@@ -33,6 +33,8 @@ def upload_file():
     filename = secure_filename(f.filename)
     f.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
     flash("Upload successfully.")
+    out = model.predictImage(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+    flash("The predicted emotion is " + out)
     return render_template('upload.html', filename=filename)
     
 @app.route('/display/<filename>')
