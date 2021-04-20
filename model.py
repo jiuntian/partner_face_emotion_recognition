@@ -13,13 +13,13 @@ from torch.utils.data import Dataset
 from torchvision import transforms
 
 label_to_expression = {
-    1:'Surprise',
-    2:'Fear',
-    3:'Disgust',
-    4:'Happiness',
-    5:'Sadness',
-    6:'Anger',
-    7:'Neutral'
+    1: 'Surprise',
+    2: 'Fear',
+    3: 'Disgust',
+    4: 'Happiness',
+    5: 'Sadness',
+    6: 'Anger',
+    7: 'Neutral'
 }
 
 transform_test = transforms.Compose([
@@ -27,20 +27,23 @@ transform_test = transforms.Compose([
     transforms.ToTensor(),
 ])
 
-cpu = torch.load('resource/rafdb_resnet18.pth', map_location=torch.device('cpu'))
+cpu = torch.load('resource/rafdb_resnet18.pth',
+                 map_location=torch.device('cpu'))
 cpu.eval()
+
 
 def pil_loader(path: str) -> Image.Image:
     with open(path, 'rb') as f:
         img = Image.open(f)
         return img.convert('RGB')
 
-def predictImage(img):
-  # img = pil_loader(filepath)
-  img = transform_test(img)
-  img = img.unsqueeze(0)
-  
-  with torch.no_grad():
-    output = cpu(img)
-  return label_to_expression[(int)(output.argmax() + 1)]
 
+def predictImage(img: Image):
+    # img = pil_loader(filepath)
+    img = transform_test(img)
+    # add one dimension at axis 0
+    img = img.unsqueeze(0)
+
+    with torch.no_grad():
+        output = cpu(img)
+    return label_to_expression[(int)(output.argmax() + 1)]
