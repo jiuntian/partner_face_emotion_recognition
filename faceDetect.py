@@ -19,29 +19,12 @@ def detectFaceArea(img: np.ndarray) -> list:
     # convert to grayscale
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     # detect using haar cascade
-    faces_rect = haar_cascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=3)
+    scaled_faces_rect = haar_cascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=3)
+    faces_rect = []
+    for (x, y, w, h) in scaled_faces_rect:
+        faces_rect.append((x//scale, y//scale, w//scale, h//scale))
+    
     return faces_rect
-
-
-def cropFace(img: np.ndarray, faces_rect: list) -> list:
-    """
-    Crop out faces from one image with given *scaled* faces_rect
-
-    Returns:
-        list: a list of cropped OpenCV images
-    """
-    cropList = []
-    for (x, y, w, h) in faces_rect:
-        clonedImg = img.copy()
-        # rescale back
-        x = int(x//scale)
-        y = int(y//scale)
-        w = int(w//scale)
-        h = int(h//scale)
-        cropList.append(clonedImg[y:y+h, x:x+w])
-
-    return cropList
-
 
 def cvt_cv2_to_PIL(img: np.ndarray) -> Image:
     """Convert from OpenCV Numpy image to PIL image"""
@@ -51,7 +34,6 @@ def cvt_cv2_to_PIL(img: np.ndarray) -> Image:
 def cvt_PIL_to_cv2(img: Image) -> np.ndarray:
     """Convert from PIL image to OpenCV Numpy image"""
     return cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR)
-
 
 def drawRect(img: np.ndarray, faces_rect: list):
     """Draw rectangle on image"""

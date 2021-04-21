@@ -41,15 +41,20 @@ def upload_file():
     img = Image.open(f)
     
     cv2_img = detection.cvt_PIL_to_cv2(img)
-    cropedList = detection.cropFace(cv2_img, detection.detectFaceArea(cv2_img))
+    rectList = detection.detectFaceArea(cv2_img)
 
     # check number of detected face
-    if len(cropedList) < 1:
+    if len(rectList) < 1:
         flash("No face detected")
         return redirect(request.url)
     
-    # take only one cropped face
-    img = detection.cvt_cv2_to_PIL(cropedList[0])
+    # crop images
+    imgList = []
+    for (x, y, w, h) in rectList:
+        imgList.append(img.crop((x, y, x + w, y + h)))
+
+    # take one only
+    img = imgList[0]
 
     data = io.BytesIO()
     img.save(data, "JPEG")
