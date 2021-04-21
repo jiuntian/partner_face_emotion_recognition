@@ -36,8 +36,7 @@ def upload_file():
     elif not allowed_file(f.filename):
         flash("Invalid file type")
         return redirect(request.url)
-    # filename = secure_filename(f.filename)
-    # f.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+
     img = Image.open(f)
     
     cv2_img = detection.cvt_PIL_to_cv2(img)
@@ -52,22 +51,19 @@ def upload_file():
     imgList = []
     for (x, y, w, h) in rectList:
         imgList.append(img.crop((x, y, x + w, y + h)))
-
-    # take one only
-    img = imgList[0]
-
-    data = io.BytesIO()
-    img.save(data, "JPEG")
-    encoded_img_data = base64.b64encode(data.getvalue())
     flash("Upload successfully.")
-    out = model.predictImage(img)
-    flash("The predicted emotion is " + out)
-    return render_template('upload.html', img_data=encoded_img_data.decode('utf-8'))
 
-# Code for displaying uploaded image, comment out for now since we are not saving it
-# @app.route('/display/<filename>')
-# def display_image(filename):
-# 	return redirect(url_for('static', filename='uploads/' + filename), code=301)
+    img_data = []
+    for img in imgList:
+        data = io.BytesIO()
+        img.save(data, "JPEG")
+        encoded_img_data = base64.b64encode(data.getvalue())
+        img_data.append(encoded_img_data.decode('utf-8'))
+
+    out = model.predictImage(imgList)
+    flash("The predicted emotion is ")
+    return render_template('upload.html', img_data=img_data, res=out)
+
 
 
 if __name__ == '__main__':

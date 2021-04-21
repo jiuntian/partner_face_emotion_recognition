@@ -13,11 +13,14 @@
 	  {% endif %}
 	{% endwith %}
 </p>
-{% if img_data %}
+
 	<div>
-		<img id="picture" src="data:image/jpeg;base64,{{ img_data }}">
+		{% for img_dat in img_data %}
+		<img id="picture" src="data:image/jpeg;base64,{{ img_dat }}">
+			{{ res[loop.index0] }}
+		{% endfor %}
 	</div>
-{% endif %}
+
 <form method="post" action="/" enctype="multipart/form-data">
     <dl>
 		<p>
