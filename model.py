@@ -38,12 +38,12 @@ def pil_loader(path: str) -> Image.Image:
         return img.convert('RGB')
 
 
-def predictImage(img: Image):
-    # img = pil_loader(filepath)
-    img = transform_test(img)
-    # add one dimension at axis 0
-    img = img.unsqueeze(0)
+def predictImage(imgList: list):
+    # img = pil_loader(imgList)
+    img = [transform_test(im) for im in imgList]
+    img = torch.stack(img)
 
     with torch.no_grad():
         output = cpu(img)
-    return label_to_expression[(int)(output.argmax() + 1)]
+    res = [label_to_expression[(int)(x.argmax() + 1)] for x in output]
+    return res
