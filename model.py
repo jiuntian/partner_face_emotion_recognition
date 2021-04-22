@@ -39,14 +39,11 @@ def pil_loader(path: str) -> Image.Image:
 
 
 def predictImage(imgList: list):
-    res = []
-    for img in imgList:
-    # img = pil_loader(filepath)
-      img = transform_test(img)
-      # add one dimension at axis 0
-      img = img.unsqueeze(0)
+    # img = pil_loader(imgList)
+    img = [transform_test(im) for im in imgList]
+    img = torch.stack(img)
 
-      with torch.no_grad():
-          output = cpu(img)
-      res.append(label_to_expression[(int)(output.argmax() + 1)])
+    with torch.no_grad():
+        output = cpu(img)
+    res = [label_to_expression[(int)(x.argmax() + 1)] for x in output]
     return res

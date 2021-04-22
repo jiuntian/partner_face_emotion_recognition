@@ -57,8 +57,8 @@ def upload_file():
     for img in imgList:
         data = io.BytesIO()
         img.save(data, "JPEG")
-        encoded_img_data = base64.b64encode(data.getvalue())
-        img_data.append(encoded_img_data.decode('utf-8'))
+        encoded_img_data = base64.b64encode(data.getvalue()) # convert to base64 in byte
+        img_data.append(encoded_img_data.decode('utf-8')) # convert to base64 in utf-8
 
     out = model.predictImage(imgList)
 
