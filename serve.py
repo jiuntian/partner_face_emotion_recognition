@@ -9,12 +9,11 @@ import base64
 from PIL import Image
 import faceDetect as detection
 
-UPLOAD_FOLDER = 'static/uploads/'
+
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '12345'
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 
 @app.route("/")
