@@ -1,0 +1,37 @@
+<html>
+<head>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="{{ url_for('static', filename='script.js')}}"></script>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css')}}"/>
+</head>
+<body>
+    <div class="head">
+        Is He/She Angry?
+      </div>
+      <form action="/" method="POST" enctype="multipart/form-data">
+        <input type="file" name="file" autocomplete="off" required>
+        <p>Drag your files here or click in this area.</p>
+        <button type="submit">Upload</button>
+      </form>
+
+      <p>
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <ul>
+            {% for message in messages %}
+              <li>{{ message }}</li>
+            {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
+    </p>
+
+    <div>
+		{% for img_dat in img_data %}
+		<img id="picture" src="data:image/jpeg;base64,{{ img_dat }}"/>
+			<p class="out">{{ res[loop.index0] }}</p>
+		{% endfor %}
+	</div>
+
+    </body>
+</html>
