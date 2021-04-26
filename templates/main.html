@@ -8,6 +8,8 @@
     <div class="head">
         Is He/She Angry?
       </div>
+      <p class="desc">Wondering whether your partner is angry on you?</p>
+      <p class="desc">Why don't you take a photo and we will tell you how he/she feel.</p>
       <form action="/" method="POST" enctype="multipart/form-data">
         <input type="file" name="file" autocomplete="off" required>
         <p>Drag your files here or click in this area.</p>
@@ -19,7 +21,7 @@
           {% if messages %}
             <ul>
             {% for message in messages %}
-              <li>{{ message }}</li>
+              <li class="message">{{ message }}</li>
             {% endfor %}
             </ul>
           {% endif %}
