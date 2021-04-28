@@ -9,17 +9,16 @@ import base64
 from PIL import Image
 import faceDetect as detection
 
-UPLOAD_FOLDER = 'static/uploads/'
+
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '12345'
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 
 @app.route("/")
 def index():
-    return render_template('upload.html')
+    return render_template('main.html')
 
 
 def allowed_file(filename):
@@ -62,10 +61,9 @@ def upload_file():
 
     out = model.predictImage(imgList)
 
-    flash("The predicted emotion is ")
-    return render_template('upload.html', img_data=img_data, res=out)
+    return render_template('main.html', img_data=img_data, res=out)
 
 
 
 if __name__ == '__main__':
-    app.run(host='127.0.0.1', port=8000, debug=True)
+    app.run(host='127.0.0.1', port=8000)
