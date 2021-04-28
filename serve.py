@@ -61,7 +61,6 @@ def upload_file():
 
     out = model.predictImage(imgList)
 
-    flash("The predicted emotion is ")
     return render_template('main.html', img_data=img_data, res=out)
 
 

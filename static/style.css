@@ -2,24 +2,29 @@ body{
     background: rgba(0,0,0,0.9);
   }
 .head{
-    font-family: Garamond;
+    font-family: 'Roboto', sans-serif;
     text-align: center;
     color: #fff;
     font-size: 80px;
 }
 .desc{
-    font-family: Garamond;
+    font-family: 'Roboto', sans-serif;
     text-align: center;
     color: #fff;
     font-size: 20px;
 }
-p.out{
+p.message{
+    font-family: 'Roboto', sans-serif;
+    text-align: center !important;
     color: #fff !important;
     font-size: 20px;
 }
-li.message{
-    color: #fff !important;
+.alert{
+    font-family: 'Roboto', sans-serif;
+    text-align: center !important;
     font-size: 20px;
+    max-width: 500px;
+    margin:auto;
 }
 #picture{
     max-width: 150px !important;
@@ -29,6 +34,9 @@ li.message{
   max-width: 150px;
   max-height: 150px;
   object-fit: cover;
+}
+.card-text {
+  font-size: 18px;
 }
   form{
     position: relative;
@@ -43,6 +51,7 @@ li.message{
   form p{
     width: 100%;
     height: 100%;
+    font-size: 20px;
     text-align: center;
     line-height: 170px;
     color: #ffffff;
