@@ -2,11 +2,13 @@ body{
     background: rgba(0,0,0,0.9);
   }
 .head{
+    font-family: Garamond;
     text-align: center;
     color: #fff;
     font-size: 80px;
 }
 .desc{
+    font-family: Garamond;
     text-align: center;
     color: #fff;
     font-size: 20px;
@@ -44,7 +46,7 @@ li.message{
     text-align: center;
     line-height: 170px;
     color: #ffffff;
-    font-family: Arial;
+    font-family: Garamond;
   }
   form input{
     position: absolute;
