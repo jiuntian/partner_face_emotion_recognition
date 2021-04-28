@@ -2,6 +2,7 @@
 <head>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="{{ url_for('static', filename='script.js')}}"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css')}}"/>
 </head>
 <body>
@@ -10,11 +11,6 @@
       </div>
       <p class="desc">Wondering whether your partner is angry on you?</p>
       <p class="desc">Why don't you take a photo and we will tell you how he/she feel.</p>
-      <form action="/" method="POST" enctype="multipart/form-data">
-        <input type="file" name="file" autocomplete="off" required>
-        <p>Drag your files here or click in this area.</p>
-        <button type="submit">Upload</button>
-      </form>
 
       <p>
         {% with messages = get_flashed_messages() %}
@@ -26,14 +22,28 @@
             </ul>
           {% endif %}
         {% endwith %}
-    </p>
+      </p>
 
-    <div>
-		{% for img_dat in img_data %}
-		<img id="picture" src="data:image/jpeg;base64,{{ img_dat }}"/>
-			<p class="out">{{ res[loop.index0] }}</p>
-		{% endfor %}
-	</div>
+      <div class="row row-cols-1 row-cols-md-6">
+        {% for img_dat in img_data %}
+        <div class="col mx-auto">
+        <div class="card text-center" style="width: 10rem;">
+          <img src="data:image/jpeg;base64,{{ img_dat }}" class="card-img-top smalling mx-auto" alt="...">
+          <div class="card-body">
+            <p class="card-text">{{ res[loop.index0] }}</p>
+          </div>
+        </div>
+        </div>
+        {% endfor %}
+      </div>
+
+      <div>
+        <form action="/" method="POST" enctype="multipart/form-data">
+          <input type="file" name="file" autocomplete="off" required>
+          <p>Drag your files here or click in this area.</p>
+          <button type="submit">Upload</button>
+        </form>
+    </div>
 
     </body>
 </html>
