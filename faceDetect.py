@@ -3,8 +3,7 @@ import numpy as np
 from PIL import Image
 
 scale = 0.2
-haar_cascade = cv2.CascadeClassifier(
-    r'resource\haarcascade_frontface_default.xml')
+haar_cascade = cv2.CascadeClassifier(r'resource/haarcascade_frontface_default.xml')
 
 
 def detectFaceArea(img: np.ndarray) -> list:
