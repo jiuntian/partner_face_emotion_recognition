@@ -1,15 +1,5 @@
-import pandas as pd
-import numpy as np
 from PIL import Image
 import torch
-from torchvision.models.resnet import resnet18
-import torch.nn as nn
-import torch.optim as optim
-import torch.nn.functional as F
-import torch.backends.cudnn as cudnn
-from torch.optim.lr_scheduler import CosineAnnealingLR
-from tqdm import tqdm
-from torch.utils.data import Dataset
 from torchvision import transforms
 
 label_to_expression = {
