@@ -31,10 +31,10 @@ def upload_file():
     f = request.files['file']
     if f.filename == '':
         flash("Please select a file")
-        return redirect(request.url)
+        return index()  # redirect(request.url)
     elif not allowed_file(f.filename):
         flash("Invalid file type")
-        return redirect(request.url)
+        return index()  # redirect(request.url)
 
     img = Image.open(f)
     
@@ -44,7 +44,7 @@ def upload_file():
     # check number of detected face
     if len(rectList) < 1:
         flash("No face detected")
-        return redirect(request.url)
+        return index()  # redirect(request.url)
     
     # crop images
     imgList = []
@@ -56,13 +56,12 @@ def upload_file():
     for img in imgList:
         data = io.BytesIO()
         img.save(data, "JPEG")
-        encoded_img_data = base64.b64encode(data.getvalue()) # convert to base64 in byte
-        img_data.append(encoded_img_data.decode('utf-8')) # convert to base64 in utf-8
+        encoded_img_data = base64.b64encode(data.getvalue())  # convert to base64 in byte
+        img_data.append(encoded_img_data.decode('utf-8'))  # convert to base64 in utf-8
 
     out = model.predictImage(imgList)
 
     return render_template('main.html', img_data=img_data, res=out)
-
 
 
 if __name__ == '__main__':
